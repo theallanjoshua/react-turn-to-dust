@@ -1,0 +1,1 @@
+# react-thanos-snap
