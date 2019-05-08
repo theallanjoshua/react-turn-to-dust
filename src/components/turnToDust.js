@@ -4,15 +4,14 @@ import Chance from 'chance';
 import $ from 'jquery';
 import 'jquery-ui-bundle';
 
-const imageDataArray = [];
-const canvasCount = 30;
-const chance = new Chance();
-
 export class TurnToDust extends React.Component {
   constructor() {
     super();
     this.setCanvasRef = element => { this.canvasRef = element; };
     this.setContentRef = element => { this.contentRef = element; };
+    this.canvasCount = 15;
+    this.imageDataArray = []
+    this.chance = new Chance();
   }
 
   componentDidUpdate(prevProps) {
@@ -32,25 +31,25 @@ export class TurnToDust extends React.Component {
         //put pixel info to imageDataArray (Weighted Distributed)
       for (let i = 0; i < pixelArr.length; i+=4) {
         //find the highest probability canvas the pixel should be in
-        const p = Math.floor((i / pixelArr.length) * canvasCount);
-        const a = imageDataArray[this.weightedRandomDistribution(p)];
+        const p = Math.floor((i / pixelArr.length) * this.canvasCount);
+        const a = this.imageDataArray[this.weightedRandomDistribution(p)];
         a[i] = pixelArr[i];
         a[i + 1] = pixelArr[i + 1];
         a[i + 2] = pixelArr[i + 2];
         a[i + 3] = pixelArr[i + 3];
       }
       //create canvas for each imageData and append to target element
-      for (let i = 0; i < canvasCount; i++) {
-        const c = this.newCanvasFromImageData(imageDataArray[i], canvas.width, canvas.height, canvas.style);
+      for (let i = 0; i < this.canvasCount; i++) {
+        const c = this.newCanvasFromImageData(this.imageDataArray[i], canvas.width, canvas.height, canvas.style);
         $(this.contentRef).append(c);
       }
       // clear all children except the canvas
-      $(this.contentRef).children().not('canvas').animate({ opacity: 0 }, 3500);
+      $(this.contentRef).children().not('canvas').animate({ opacity: 0 }, 2000);
 
       //apply animation
       this.contentRef.querySelectorAll('canvas').forEach((elem, index) => {
         _this.animateBlur($(elem), 0.8, 800);
-        setTimeout(() => _this.animateTransform($(elem), 100, -100, chance.integer({ min: -15, max: 15 }), 800 + (110 * index)), 70 * index);
+        setTimeout(() => _this.animateTransform($(elem), 100, -100, this.chance.integer({ min: -15, max: 15 }), 800 + (110 * index)), 70 * index);
         //remove the canvas from DOM tree when faded
         $(elem).delay(70 * index).fadeOut((110 * index) + 800, 'easeInQuint', () => $(elem).remove());
       })
@@ -60,20 +59,20 @@ export class TurnToDust extends React.Component {
   weightedRandomDistribution(peak) {
     const prob = [];
     const seq = [];
-    for(let i = 0; i < canvasCount; i++) {
-      prob.push(Math.pow(canvasCount-Math.abs(peak-i), 3));
+    for(let i = 0; i < this.canvasCount; i++) {
+      prob.push(Math.pow(this.canvasCount-Math.abs(peak-i), 3));
       seq.push(i);
     }
-    return chance.weighted(seq, prob);
+    return this.chance.weighted(seq, prob);
   }
 
   createBlankImageData(imageData) {
-    for(let i = 0; i<canvasCount; i++) {
+    for(let i = 0; i<this.canvasCount; i++) {
       const arr = new Uint8ClampedArray(imageData.data);
       for (let j = 0; j < arr.length; j++) {
         arr[j] = 0;
       }
-      imageDataArray.push(arr);
+      this.imageDataArray.push(arr);
     }
   }
 
@@ -121,7 +120,7 @@ export class TurnToDust extends React.Component {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        background: '#ddd'
+        background: '#FFF'
       }}>
         {this.props.content}
       </div>
