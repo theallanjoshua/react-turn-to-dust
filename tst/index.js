@@ -41,17 +41,18 @@ class App extends React.Component {
         <TurnToDust
           snap={this.state.snap}
           content={
-            <img src={falcon} height='250px' style={{ marginTop: '50px' }} />
+            <img src={falcon} height='260px' style={{ marginTop: '40px' }} />
           }
         />
         <TurnToDust
           snap={this.state.snap}
           content={
-            <img src={scarletWitch} height='250px' style={{ marginTop: '50px' }} />
+            <img src={scarletWitch} height='260px' style={{ marginTop: '40px' }} />
           }
         />
-        <img src={hulk} height='380px' style={{ marginTop: '-70px' }} />
+        <img src={hulk} height='380px' style={{ marginTop: '-60px' }} />
       </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
       {this.state.snap ?
         <img src={snap} />
         :
@@ -62,6 +63,7 @@ class App extends React.Component {
           onClick={() => this.setState({ snap: true })}
         />
       }
+      </div>
     </React.Fragment>;
   }
 }
