@@ -1,1 +1,1 @@
-# react-thanos-snap
+# react-infinity-gauntlet-snap
