@@ -3,6 +3,7 @@ import html2canvas from 'html2canvas';
 import Chance from 'chance';
 import $ from 'jquery';
 import 'jquery-ui-bundle';
+import dust from '../static/dust.wav';
 
 export class TurnToDust extends React.Component {
   constructor() {
@@ -22,8 +23,13 @@ export class TurnToDust extends React.Component {
 
   turnToDust() {
     const _this = this;
+
     html2canvas(this.contentRef)
     .then(canvas => {
+      // Dust dispersing sound before animation starts
+      const snd = new Audio(dust);
+      snd.play();
+      
       const ctx = canvas.getContext('2d');
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const pixelArr = imageData.data;
@@ -43,6 +49,7 @@ export class TurnToDust extends React.Component {
         const c = this.newCanvasFromImageData(this.imageDataArray[i], canvas.width, canvas.height, canvas.style);
         $(this.contentRef).append(c);
       }
+
       // clear all children except the canvas
       $(this.contentRef).children().not('canvas').animate({ opacity: 0 }, 2000);
 

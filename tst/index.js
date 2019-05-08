@@ -1,16 +1,17 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { TurnToDust } from '../src';
-import gauntlet from './images/snap-idle.png';
-import snap from './images/snap.gif';
-import ironSpider from './images/iron-spider.png';
-import blackPanther from './images/black-panther.png';
-import ironMan from './images/iron-man.png';
-import thor from './images/thor.png';
-import cap from './images/captain-america.png';
-import falcon from './images/falcon.png';
-import scarletWitch from './images/scarlet-witch.png';
-import hulk from './images/hulk.png';
+import gauntlet from './static/snap-idle.png';
+import snap from './static/snap.gif';
+import ironSpider from './static/iron-spider.png';
+import blackPanther from './static/black-panther.png';
+import ironMan from './static/iron-man.png';
+import thor from './static/thor.png';
+import cap from './static/captain-america.png';
+import falcon from './static/falcon.png';
+import scarletWitch from './static/scarlet-witch.png';
+import hulk from './static/hulk.png';
+import snapSound from './static/snap.mp3';
 import './index.css';
 
 class App extends React.Component {
@@ -60,7 +61,11 @@ class App extends React.Component {
           src={gauntlet}
           height='80px'
           style={{ cursor: 'pointer' }}
-          onClick={() => this.setState({ snap: true })}
+          onClick={() => {
+            const snd = new Audio(snapSound);
+            snd.play();
+            this.setState({ snap: true })
+          }}
         />
       }
       </div>
