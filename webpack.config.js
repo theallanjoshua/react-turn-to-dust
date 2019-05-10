@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: outputDir,
     filename: 'index.js',
-    library: 'react-infinity-gauntlet-snap',
+    library: 'react-turn-to-dust',
     libraryTarget: 'umd'
   },
   module: {
