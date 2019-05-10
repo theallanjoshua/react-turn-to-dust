@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { TurnToDust } from '../src';
-import gauntlet from './static/snap-idle.png';
-import snap from './static/snap.gif';
+import snapIdle from './static/snap-idle.png';
+import snapGif from './static/snap.gif';
 import ironSpider from './static/iron-spider.png';
 import blackPanther from './static/black-panther.png';
 import ironMan from './static/iron-man.png';
@@ -21,10 +21,11 @@ class App extends React.Component {
       snap: false
     }
   }
-  render() {
+  render = () => {
     return <React.Fragment>
       <div style={{ display: 'flex' }}>
         <TurnToDust
+          dustIntensity={15}
           snap={this.state.snap}
           content={
             <img src={ironSpider} height='170px' style={{ marginTop: '140px' }} />
@@ -32,6 +33,7 @@ class App extends React.Component {
         />
         <img src={thor} height='340px' />
         <TurnToDust
+          dustIntensity={15}
           snap={this.state.snap}
           content={
             <img src={blackPanther} height='250px' style={{ marginTop: '50px' }} />
@@ -40,12 +42,14 @@ class App extends React.Component {
         <img src={ironMan} height='180px' style={{ marginTop: '120px' }} />
         <img src={cap} height='230px' style={{ marginTop: '60px' }} />
         <TurnToDust
+          dustIntensity={15}
           snap={this.state.snap}
           content={
             <img src={falcon} height='260px' style={{ marginTop: '40px' }} />
           }
         />
         <TurnToDust
+          dustIntensity={15}
           snap={this.state.snap}
           content={
             <img src={scarletWitch} height='260px' style={{ marginTop: '40px' }} />
@@ -55,16 +59,16 @@ class App extends React.Component {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
       {this.state.snap ?
-        <img src={snap} />
+        <img src={snapGif} />
         :
         <img
-          src={gauntlet}
+          src={snapIdle}
           height='80px'
           style={{ cursor: 'pointer' }}
           onClick={() => {
             const snd = new Audio(snapSound);
             snd.play();
-            this.setState({ snap: true })
+            this.setState({ snap: true });
           }}
         />
       }

@@ -1,15 +1,16 @@
 const path = require('path');
-const outputDir = path.join(__dirname, 'lib');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const outputDir = path.join(__dirname, 'dist');
 
 module.exports = {
+  mode: 'development',
   entry: ['@babel/polyfill', './tst/index.js'],
   output: {
     path: outputDir,
-    filename: 'index.js',
-    library: 'react-infinity-gauntlet-snap',
-    libraryTarget: 'umd'
+    filename: 'index.js'
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -28,9 +29,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template: 'tst/index.html',
       inject: true,
       useGzip: true
     })
