@@ -1,4 +1,7 @@
 import * as React from 'react';
+import html2canvas from 'html2canvas';
+import Chance from 'chance';
+import $ from 'jquery';
 import 'jquery-ui-bundle';
 import dust from './static/dust.wav';
 
@@ -9,6 +12,7 @@ export class TurnToDust extends React.Component {
     this.setContentRef = element => { this.contentRef = element; };
     this.canvasCount = props.dustIntensity || 35;
     this.imageDataArray = [];
+    this.chance = new Chance();
   }
 
   componentDidUpdate = prevProps => {
@@ -18,8 +22,7 @@ export class TurnToDust extends React.Component {
   }
 
   turnToDust = async () => {
-    const html2canvas = await import('html2canvas');
-    const canvas = await html2canvas.default(this.contentRef, { logging: false, backgroundColor: null });
+    const canvas = await html2canvas(this.contentRef, { logging: false, backgroundColor: null });
 
     // Dust dispersing sound before animation starts
     const dustSound = new Audio(dust);
@@ -28,9 +31,6 @@ export class TurnToDust extends React.Component {
     const imageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
     const pixels = imageData.data;
     this.createBlankImageData(imageData);
-
-    const Chance = await import('chance');
-    this.chance = new Chance.default();
 
     // put pixel info to imageDataArray (Weighted Distributed)
     for (let i = 0; i < pixels.length; i+=4) {
@@ -42,8 +42,7 @@ export class TurnToDust extends React.Component {
       a[i + 2] = pixels[i + 2];
       a[i + 3] = pixels[i + 3];
     }
-    const jquery = await import('jquery');
-    const $ = jquery.default;
+
     // create canvas for each imageData and append to target element
     for (let i = 0; i < this.canvasCount; i++) {
       const newCanvas = this.newCanvasFromImageData(this.imageDataArray[i], canvas.width, canvas.height, canvas.style);
@@ -55,8 +54,8 @@ export class TurnToDust extends React.Component {
 
     // apply animation
     this.contentParentRef.querySelectorAll(':not(:first-child)').forEach((element, index) => {
-      this.animateBlur($, element, 0.8, 800);
-      setTimeout(() => this.animateTransform($, element, 100, -100, this.chance.integer({ min: -15, max: 15 }), 800 + (110 * index)), 70 * index);
+      this.animateBlur(element, 0.8, 800);
+      setTimeout(() => this.animateTransform(element, 100, -100, this.chance.integer({ min: -15, max: 15 }), 800 + (110 * index)), 70 * index);
       // remove the canvas from DOM tree when faded
       $(element).delay(70 * index).fadeOut((110 * index) + 800, 'easeInQuint', () => $(element).remove());
     });
@@ -93,7 +92,7 @@ export class TurnToDust extends React.Component {
     return canvas;
   }
 
-  animateBlur = ($, element, radius, duration) => {
+  animateBlur = (element, radius, duration) => {
     $({ rad: 0 }).animate({ rad: radius }, {
       duration: duration,
       easing: 'easeOutQuad',
@@ -101,7 +100,7 @@ export class TurnToDust extends React.Component {
     });
   }
 
-  animateTransform = ($, element, sx, sy, angle, duration) => {
+  animateTransform = (element, sx, sy, angle, duration) => {
     let td = 0;
     let tx = 0;
     let ty = 0;
