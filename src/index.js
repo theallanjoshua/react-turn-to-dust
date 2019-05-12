@@ -50,7 +50,7 @@ export class TurnToDust extends React.Component {
     }
 
     // clear all children except the canvas
-    this.contentRef.style.visibility = 'hidden';
+    this.contentRef.style.opacity = 0;
 
     // apply animation
     this.contentParentRef.querySelectorAll(':not(:first-child)').forEach((element, index) => {
