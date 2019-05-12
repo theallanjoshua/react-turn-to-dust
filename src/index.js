@@ -3,7 +3,7 @@ import html2canvas from 'html2canvas';
 import Chance from 'chance';
 import $ from 'jquery';
 import 'jquery-ui-bundle';
-import dust from './static/dust.wav';
+import dust from './dust.wav';
 
 export class TurnToDust extends React.Component {
   constructor(props) {
@@ -121,11 +121,7 @@ export class TurnToDust extends React.Component {
 
   render = () => {
     return <React.Fragment>
-      <div ref={this.setContentParentRef} style={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column'
-      }}>
+      <div ref={this.setContentParentRef} style={{ display: 'flex', flexDirection: 'column' }}>
         <div ref={this.setContentRef}>
           {this.props.content}
         </div>
