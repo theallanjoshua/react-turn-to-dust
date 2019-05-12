@@ -1,6 +1,6 @@
 {
   "name": "react-turn-to-dust",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "author": "Allan Joshua",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "dev": "webpack-dev-server --hot --config webpack.config.dev.js",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release-patch" : "npm version patch && npm run build && npm publish"
+    "release-patch": "npm version patch && npm run build && npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
