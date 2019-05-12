@@ -53,7 +53,7 @@ export class TurnToDust extends React.Component {
     this.contentRef.style.opacity = 0;
 
     // apply animation
-    this.contentParentRef.querySelectorAll(':not(:first-child)').forEach((element, index) => {
+    Array.from(this.contentParentRef.children).filter((child, index) => index > 0).forEach((element, index) => {
       this.animateBlur(element, 0.8, 800);
       setTimeout(() => this.animateTransform(element, 100, -100, this.chance.integer({ min: -15, max: 15 }), 800 + (110 * index)), 70 * index);
       // remove the canvas from DOM tree when faded
