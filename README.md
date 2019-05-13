@@ -15,7 +15,7 @@ npm install --save react-turn-to-dust
 ```jsx static
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { TurnToDust } from '../src';
+import { TurnToDust } from 'react-turn-to-dust';
 
 class App extends React.Component {
   constructor() {

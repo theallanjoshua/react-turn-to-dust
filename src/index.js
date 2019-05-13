@@ -10,7 +10,7 @@ export class TurnToDust extends React.Component {
     super(props);
     this.setContentParentRef = element => { this.contentParentRef = element; };
     this.setContentRef = element => { this.contentRef = element; };
-    this.canvasCount = props.dustIntensity || 35;
+    this.canvasCount = props.dustIntensity || 15;
     this.imageDataArray = [];
     this.chance = new Chance();
   }
