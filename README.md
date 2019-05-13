@@ -56,4 +56,4 @@ ReactDOM.render(<App />, document.getElementById('app'));
 |---------------|---------|---------|-------------------------------------------------------------|
 | content       | Element | empty   | Pass the element you want to turn to dust                   |
 | snap          | Boolean | false   | Set to true when you want the content to turn to dust       |
-| dustIntensity | Number  | 35      | Increase and reduce to see what works best for your content |
+| dustIntensity | Number  | 15      | Increase and reduce to see what works best for your content |
